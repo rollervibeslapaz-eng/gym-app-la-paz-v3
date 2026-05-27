@@ -1,293 +1,290 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym App La Paz</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00ff99">
 
-<title>Gym App La Paz</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#00ff99">
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#0f0f0f;
+      color:white;
+      padding-bottom:90px;
+    }
 
-<style>
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0f0f0f;
-  color:white;
-  padding-bottom:90px;
-}
+    .container{
+      max-width:480px;
+      margin:auto;
+      padding:20px;
+    }
 
-.container{
-  max-width:480px;
-  margin:auto;
-  padding:20px;
-}
+    .card{
+      background:#1b1b1b;
+      padding:22px;
+      border-radius:24px;
+      margin-bottom:20px;
+      box-shadow:0 8px 20px rgba(0,0,0,.3);
+    }
 
-.card{
-  background:#1b1b1b;
-  padding:22px;
-  border-radius:24px;
-  margin-bottom:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,.3);
-}
+    h1{
+      text-align:center;
+      font-size:34px;
+      color:#00ff99;
+      margin:0;
+    }
 
-h1{
-  text-align:center;
-  font-size:34px;
-  color:#00ff99;
-  margin:0;
-}
+    h2{
+      color:#00ff99;
+    }
 
-h2{
-  color:#00ff99;
-}
+    .subtitle{
+      text-align:center;
+      color:#aaa;
+      margin-bottom:18px;
+    }
 
-.subtitle{
-  text-align:center;
-  margin-bottom:20px;
-  color:#aaa;
-}
+    .btn{
+      display:block;
+      text-decoration:none;
+      text-align:center;
+      padding:16px;
+      border-radius:18px;
+      margin-top:12px;
+      font-weight:bold;
+      background:#00ff99;
+      color:#111;
+    }
 
-.btn{
-  display:block;
-  text-decoration:none;
-  text-align:center;
-  padding:16px;
-  border-radius:18px;
-  margin-top:12px;
-  font-weight:bold;
-  background:#00ff99;
-  color:#111;
-}
+    .gallery{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
 
-.gallery{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
+    .gallery img{
+      width:100%;
+      border-radius:16px;
+      cursor:pointer;
+    }
 
-.gallery img{
-  width:100%;
-  border-radius:16px;
-  cursor:pointer;
-}
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:#111;
+      display:flex;
+      justify-content:space-around;
+      padding:14px;
+      z-index:1000;
+    }
 
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#111;
-  display:flex;
-  justify-content:space-around;
-  padding:14px;
-  z-index:1000;
-}
+    .bottom-nav a{
+      color:#00ff99;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:bold;
+    }
 
-.bottom-nav a{
-  color:#00ff99;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:bold;
-}
+    .install-btn{
+      position:fixed;
+      bottom:90px;
+      left:20px;
+      right:20px;
+      padding:16px;
+      border:none;
+      border-radius:18px;
+      background:#00ff99;
+      color:#111;
+      font-weight:bold;
+      display:none;
+      z-index:1001;
+    }
 
-.install-btn{
-  position:fixed;
-  bottom:90px;
-  left:20px;
-  right:20px;
-  padding:16px;
-  border:none;
-  border-radius:18px;
-  background:#00ff99;
-  color:#111;
-  font-weight:bold;
-  display:none;
-  z-index:1001;
-}
+    .lightbox{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.92);
+      z-index:9999;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
 
-.lightbox{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.92);
-  z-index:9999;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
+    .lightbox.show{
+      display:flex;
+    }
 
-.lightbox.show{
-  display:flex;
-}
+    .lightbox img{
+      max-width:100%;
+      max-height:85vh;
+      border-radius:18px;
+    }
 
-.lightbox img{
-  max-width:100%;
-  max-height:85vh;
-  border-radius:18px;
-}
+    .lightbox-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:46px;
+      height:46px;
+      border:none;
+      border-radius:50%;
+      background:rgba(255,255,255,.2);
+      color:white;
+      font-size:34px;
+      font-weight:bold;
+    }
 
-.lightbox-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:46px;
-  height:46px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,.2);
-  color:white;
-  font-size:34px;
-  font-weight:bold;
-}
+    .prev{
+      left:18px;
+    }
 
-.prev{
-  left:18px;
-}
+    .next{
+      right:18px;
+    }
 
-.next{
-  right:18px;
-}
-
-.lightbox-close{
-  position:absolute;
-  top:24px;
-  right:24px;
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,.2);
-  color:white;
-  font-size:30px;
-  font-weight:bold;
-}
-</style>
+    .lightbox-close{
+      position:absolute;
+      top:24px;
+      right:24px;
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      background:rgba(255,255,255,.2);
+      color:white;
+      font-size:30px;
+      font-weight:bold;
+    }
+  </style>
 </head>
 
 <body>
 
-<button id="installBtn" class="install-btn">
-Instalar app
-</button>
+  <button id="installBtn" class="install-btn">Instalar app</button>
 
-<div class="container">
+  <div class="container">
 
-  <div class="card" id="inicio">
-    <h1>GYM APP</h1>
-    <div class="subtitle">Tu gimnasio en una app</div>
-    <p style="text-align:center;">
-      Horarios, promociones, clases, entrenadores y contacto desde tu celular.
-    </p>
-  </div>
-
-  <div class="card" id="planes">
-    <h2>Planes</h2>
-    <p>💪 Mensualidad básica</p>
-    <p>🔥 Área de pesas</p>
-    <p>🏋️ Clases funcionales</p>
-    <p>🥗 Asesoría fitness</p>
-  </div>
-
-  <div class="card" id="horarios">
-    <h2>Horarios</h2>
-    <p><strong>Lunes a viernes</strong></p>
-    <p>6:00 AM - 10:00 PM</p>
-    <p><strong>Sábado</strong></p>
-    <p>8:00 AM - 4:00 PM</p>
-  </div>
-
-  <div class="card" id="galeria">
-    <h2>Galería</h2>
-
-    <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(0)">
-      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(1)">
-      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(2)">
-      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(3)">
+    <div class="card" id="inicio">
+      <h1>GYM APP</h1>
+      <div class="subtitle">Tu gimnasio en una app</div>
+      <p style="text-align:center;">
+        Horarios, promociones, clases, entrenadores y contacto desde tu celular.
+      </p>
     </div>
+
+    <div class="card" id="planes">
+      <h2>Planes</h2>
+      <p>💪 Mensualidad básica</p>
+      <p>🔥 Área de pesas</p>
+      <p>🏋️ Clases funcionales</p>
+      <p>🥗 Asesoría fitness</p>
+    </div>
+
+    <div class="card" id="horarios">
+      <h2>Horarios</h2>
+      <p><strong>Lunes a viernes</strong></p>
+      <p>6:00 AM - 10:00 PM</p>
+      <p><strong>Sábado</strong></p>
+      <p>8:00 AM - 4:00 PM</p>
+    </div>
+
+    <div class="card" id="galeria">
+      <h2>Galería</h2>
+
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(0)">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(1)">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(2)">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop" onclick="openLightbox(3)">
+      </div>
+    </div>
+
+    <div class="card" id="contacto">
+      <h2>Contacto</h2>
+      <a class="btn" href="https://wa.me/526120000000" target="_blank">
+        WhatsApp
+      </a>
+    </div>
+
   </div>
 
-  <div class="card" id="contacto">
-    <h2>Contacto</h2>
-    <a class="btn" href="https://wa.me/526120000000" target="_blank">
-      WhatsApp
-    </a>
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-btn prev" onclick="prevImage()">‹</button>
+    <img id="lightboxImg" src="">
+    <button class="lightbox-btn next" onclick="nextImage()">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
   </div>
 
-</div>
+  <nav class="bottom-nav">
+    <a href="#inicio">Inicio</a>
+    <a href="#planes">Planes</a>
+    <a href="#galeria">Galería</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-btn prev" onclick="prevImage()">‹</button>
-  <img id="lightboxImg" src="">
-  <button class="lightbox-btn next" onclick="nextImage()">›</button>
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-</div>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").then(registration => {
+        registration.update();
+      });
+    }
 
-<nav class="bottom-nav">
-  <a href="#inicio">Inicio</a>
-  <a href="#planes">Planes</a>
-  <a href="#galeria">Galería</a>
-  <a href="#contacto">Contacto</a>
-</nav>
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
 
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js").then(registration => {
-    registration.update();
-  });
-}
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = "block";
+    });
 
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
+    installBtn.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        installBtn.style.display = "none";
+      } else {
+        alert("Para instalar la app:\n\nAndroid: Chrome → menú ⋮ → Instalar app\n\niPhone: Safari → Compartir → Agregar a pantalla de inicio");
+      }
+    });
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = "block";
-});
+    const images = [
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop"
+    ];
 
-installBtn.addEventListener("click", async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    installBtn.style.display = "none";
-  } else {
-    alert("Para instalar la app:\n\nAndroid: Chrome → menú ⋮ → Instalar app\n\niPhone: Safari → Compartir → Agregar a pantalla de inicio");
-  }
-});
+    let currentImage = 0;
 
-const images = [
-  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop"
-];
+    function openLightbox(index){
+      currentImage = index;
+      document.getElementById("lightboxImg").src = images[currentImage];
+      document.getElementById("lightbox").classList.add("show");
+    }
 
-let currentImage = 0;
+    function closeLightbox(){
+      document.getElementById("lightbox").classList.remove("show");
+      document.getElementById("lightboxImg").src = "";
+    }
 
-function openLightbox(index){
-  currentImage = index;
-  document.getElementById("lightboxImg").src = images[currentImage];
-  document.getElementById("lightbox").classList.add("show");
-}
+    function nextImage(){
+      currentImage = (currentImage + 1) % images.length;
+      document.getElementById("lightboxImg").src = images[currentImage];
+    }
 
-function closeLightbox(){
-  document.getElementById("lightbox").classList.remove("show");
-  document.getElementById("lightboxImg").src = "";
-}
-
-function nextImage(){
-  currentImage = (currentImage + 1) % images.length;
-  document.getElementById("lightboxImg").src = images[currentImage];
-}
-
-function prevImage(){
-  currentImage = (currentImage - 1 + images.length) % images.length;
-  document.getElementById("lightboxImg").src = images[currentImage];
-}
-</script>
+    function prevImage(){
+      currentImage = (currentImage - 1 + images.length) % images.length;
+      document.getElementById("lightboxImg").src = images[currentImage];
+    }
+  </script>
 
 </body>
 </html>
