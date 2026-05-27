@@ -346,5 +346,67 @@ Notification.requestPermission()
 });
 
 </script>
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getMessaging,
+  getToken
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCNEenYX2Uom8wK_X5KYHBqMuDR0iMmTTo",
+  authDomain: "roller-vibes-mx-la-paz.firebaseapp.com",
+  projectId: "roller-vibes-mx-la-paz",
+  storageBucket: "roller-vibes-mx-la-paz.firebasestorage.app",
+  messagingSenderId: "427270707643",
+  appId: "1:427270707643:web:e4ef2c5925aa0adfbb8c9e"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const messaging = getMessaging(app);
+
+
+Notification.requestPermission()
+.then((permission) => {
+
+  if (permission === "granted") {
+
+    console.log("Permiso concedido");
+
+    getToken(messaging, {
+      vapidKey: "BAYAM_koSOux5244NsfUN2ZoXmUINfxDrTvjQjHNMwGLoCC62Iqb2hJb1em-a2RNA9vOYSncnV3L0IpDJl6b7-U"
+    })
+    .then((currentToken) => {
+
+      if (currentToken) {
+
+        console.log("TOKEN:", currentToken);
+
+        alert("Notificaciones activadas 🔔");
+
+      } else {
+
+        console.log("No se generó token");
+
+      }
+
+    })
+    .catch((err) => {
+
+      console.log("Error:", err);
+
+    });
+
+  }
+
+});
+
+</script>
+
 </body>
 </html>
