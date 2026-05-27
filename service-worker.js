@@ -1,4 +1,4 @@
-const CACHE_NAME = "gym-app-cache-v10";
+const CACHE_NAME = "gym-app-cache-v20";
 
 const urlsToCache = [
   "./",
@@ -12,8 +12,7 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 
   event.waitUntil(
-    caches.open(CACHE_NAME)
-    .then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(urlsToCache);
     })
   );
@@ -37,8 +36,7 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    fetch(event.request)
-    .catch(() => {
+    fetch(event.request).catch(() => {
       return caches.match(event.request);
     })
   );
